@@ -23,7 +23,7 @@ class PHPPageTest(unittest.TestCase):
         
         self.url = "http://localhost/LibreriaPrueba/"
         
-    def test_pagina_carga_correctamente(self):
+    def test_01_pagina_carga_correctamente(self):
         driver = self.driver
         # Navegar a la página
         driver.get(self.url)
@@ -31,7 +31,7 @@ class PHPPageTest(unittest.TestCase):
         # Verifica que el título de la página sea el esperado
         self.assertIn("Libreria Prueba Técnica", driver.title)
         
-    def test_formulario_envio(self):
+    def test_02_formulario_envio(self):
         driver = self.driver
         driver.get(self.url)
         
@@ -46,25 +46,13 @@ class PHPPageTest(unittest.TestCase):
         boton_enviar = driver.find_element(By.ID, "btn_form")
         boton_enviar.click()
 
-    def test_eliminar_libro(self):
+    def test_03_editar_libro(self):
         driver = self.driver
         driver.get(self.url)
+
         celda_con_texto = driver.find_element(By.XPATH, "//td[contains(text(), 'Titulo Test')]")
     
-        # Buscar en el tr padre
-        fila = celda_con_texto.find_element(By.XPATH, "./..")
-        
-        # Encuentra el botón dentro de esa fila
-        boton = fila.find_element(By.XPATH, ".//button[contains(@id, 'btnEliminar')]")
-        boton.click()
-
-    def test_editar_libro(self):
-        driver = self.driver
-        driver.get(self.url)
-
-        celda_con_texto = driver.find_element(By.XPATH, "//td[contains(text(), 'León TolsToi')]")
-    
-        # Luego, subir al elemento padre (la fila <tr>)
+        # Luego, subir al elemento padre
         fila = celda_con_texto.find_element(By.XPATH, "./..")
         
         # Encuentra el botón dentro de esa fila
@@ -73,14 +61,26 @@ class PHPPageTest(unittest.TestCase):
 
         # Busca el campo de entrada por titulo y autor para cambiar sus valores
         campo_titulo = driver.find_element(By.ID, "editTitle_form")
-        campo_titulo.send_keys("Titulo Test Editado")
+        campo_titulo.send_keys("Editado")
         
         campo_autor = driver.find_element(By.ID, "editAutor_form")
-        campo_autor.send_keys("Autor Test Editado")
+        campo_autor.send_keys("Editado")
 
         # Envia el formulario
         boton_enviar = driver.find_element(By.ID, "btnEditar_form")
         boton_enviar.click()
+
+    def test_04_eliminar_libro(self):
+        driver = self.driver
+        driver.get(self.url)
+        celda_con_texto = driver.find_element(By.XPATH, "//td[contains(text(), 'Titulo TestEditado')]")
+    
+        # Buscar en el tr padre
+        fila = celda_con_texto.find_element(By.XPATH, "./..")
+        
+        # Encuentra el botón dentro de esa fila
+        boton = fila.find_element(By.XPATH, ".//button[contains(@id, 'btnEliminar')]")
+        boton.click()
 
 if __name__ == "__main__":
     unittest.main()
