@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Libreria Prueba Técnica</title>
+    <!-- Boostrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Boostrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <!-- Título Principal -->
+    <h1 class="text-center p-3">Biblioteca</h1>
+
+    <div class="container-fluid row">
+      <!-- Formulario para agregar libro -->
+      <form method="post" id="nuevoLibro_form" class="col-4">
+        <h3 class="text-center text-secondary">Registro Nuevos Libros</h3>
+
+        <!-- Título -->
+        <div class="mb-3">
+          <label for="title_form" class="form-label">Título</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title_form"
+            name="title_form"
+            placeholder="Ingresa el título del libro"
+          />
+        </div>
+
+        <!-- Autor -->
+        <div class="mb-3">
+          <label for="autor_form" class="form-label">Autor</label>
+          <input
+            type="text"
+            class="form-control"
+            id="autor_form"
+            name="autor_form"
+            placeholder="Ingresa el autor del libro"
+          />
+        </div>
+
+        <!-- Género -->
+        <div class="mb-3">
+          <label for="genero_form" class="form-label">Género</label>
+          <input
+            type="text"
+            class="form-control"
+            id="genero_form"
+            name="genero_form"
+            placeholder="Ingresa el género del libro"
+          />
+        </div>
+
+        <!-- Stock -->
+        <div class="mb-3">
+          <label for="stock_form" class="form-label">Stock</label>
+          <input
+            type="number"
+            class="form-control"
+            id="stock_form"
+            name="stock_form"
+            placeholder="Número del Stock"
+          />
+        </div>
+
+        <!-- Botón para agregar libro -->
+        <button
+          id="btn_form"
+          type="submit"
+          name="action"
+          value="add"
+          class="btn btn-primary"
+        >
+          Agregar Libro
+        </button>
+      </form>
+      <div class="col-8 p-4">
+        <table class="table table-striped-columns align-items-center">
+          <thead class="bg-info">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Autor</th>
+              <th scope="col">Género</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Editar/Eliminar</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-libros">
+            <!-- Contenido de Libros -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal de Edición -->
+    <div
+      class="modal fade"
+      id="modal_libro"
+      tabindex="-1"
+      aria-labelledby="modal_libroLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal_libroLabel">Editar Libro</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="editLibro_form">
+              <input type="hidden" id="idLibro_form" name="idLibro_form" />
+              <div class="mb-3">
+                <label for="editTitle_form" class="form-label">Título</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editTitle_form"
+                  name="editTitle_form"
+                  placeholder="Ingresa el título del libro"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editAutor_form" class="form-label">Autor</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editAutor_form"
+                  name="editAutor_form"
+                  placeholder="Ingresa el autor del libro"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editGenero_form" class="form-label">Género</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editGenero_form"
+                  name="editGenero_form"
+                  placeholder="Ingresa el género del libro"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editStock_form" class="form-label">Stock</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="editStock_form"
+                  name="editStock_form"
+                  placeholder="Número del Stock"
+                />
+              </div>
+              <button id="btnEditar_form" type="submit" class="btn btn-primary">
+                Guardar cambios
+              </button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Script Connection Boostrap-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- JavaScript -->
+    <script type="text/JavaScript" src="adminLibros.js"></script>
+  </body>
+</html>
