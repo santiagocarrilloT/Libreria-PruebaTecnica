@@ -62,7 +62,7 @@ class PHPPageTest(unittest.TestCase):
         driver = self.driver
         driver.get(self.url)
 
-        celda_con_texto = driver.find_element(By.XPATH, "//td[contains(text(), 'kgdTitulo Test Editado')]")
+        celda_con_texto = driver.find_element(By.XPATH, "//td[contains(text(), 'León TolsToi')]")
     
         # Luego, subir al elemento padre (la fila <tr>)
         fila = celda_con_texto.find_element(By.XPATH, "./..")
